@@ -390,57 +390,64 @@ void DrawDebugFont(HWND hWnd)
 	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
 
 	// êØÇÃèÓïÒ
-	for (int i = 0; i < 33; i++)
+	for (int i = 0, j = 0; i < STARS_MAX; i++, j++)
 	{
+		if (j == 33)
+		{
+			j = 0;
+			rect.top = 40;
+			rect.left += 200;
+		}
 		rect.top += 20;
 		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
 		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+
 	}
 
-	rect.top = 40;
-	rect.left += 200;
-	for (int i = 33; i < 66; i++)
-	{
-		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
-		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-	}
+	//rect.top = 40;
+	//rect.left += 200;
+	//for (int i = 33; i < 66; i++)
+	//{
+	//	rect.top += 20;
+	//	sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+	//	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	//}
 
-	rect.top = 40;
-	rect.left += 200;
-	for (int i = 66; i < 99; i++)
-	{
-		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
-		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-	}
+	//rect.top = 40;
+	//rect.left += 200;
+	//for (int i = 66; i < 99; i++)
+	//{
+	//	rect.top += 20;
+	//	sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+	//	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	//}
 
-	rect.top = 40;
-	rect.left += 200;
-	for (int i = 99; i < 132; i++)
-	{
-		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
-		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-	}
+	//rect.top = 40;
+	//rect.left += 200;
+	//for (int i = 99; i < 132; i++)
+	//{
+	//	rect.top += 20;
+	//	sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+	//	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	//}
 
-	rect.top = 40;
-	rect.left += 200;
-	for (int i = 132; i < 165; i++)
-	{
-		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
-		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-	}
+	//rect.top = 40;
+	//rect.left += 200;
+	//for (int i = 132; i < 165; i++)
+	//{
+	//	rect.top += 20;
+	//	sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+	//	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	//}
 
-	rect.top = 40;
-	rect.left += 200;
-	for (int i = 165; i < 180; i++)
-	{
-		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
-		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-	}
+	//rect.top = 40;
+	//rect.left += 200;
+	//for (int i = 165; i < 180; i++)
+	//{
+	//	rect.top += 20;
+	//	sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+	//	D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
+	//}
 
 }
 #endif

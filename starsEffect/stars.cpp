@@ -86,7 +86,7 @@ void UpdateStars(void)
 
 		if (!starsBase[i].use)
 		{
-			if ((rand() % 10) == 0)
+			if ((rand() % 120) == 0)
 			{
 				starsBase[i].use = true;
 			}
@@ -94,8 +94,8 @@ void UpdateStars(void)
 
 		if (starsBase[i].use)
 		{
-			// 点滅の速度(8160=255*32)
-			float tmpAlphaSpd = (360.0f / 8160.0f);
+			// 点滅の速度
+			float tmpAlphaSpd = (360.0f / 16320.0f);
 			starsSecondary[tmpSecNo].alpha += tmpAlphaSpd;
 			if (starsSecondary[tmpSecNo].alpha > 360.0f)
 			{
