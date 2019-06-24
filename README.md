@@ -1,6 +1,6 @@
 # MilkyWay
 イチゴ
 
-<Stars Effect>
+Stars Effect
   Data
   Stars.png(For Test)
