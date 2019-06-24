@@ -1,5 +1,3 @@
 # MilkyWay
 イチゴ
-Stars Effect
-Data
-Stars.png(For Test)
+1.Stars Effect
