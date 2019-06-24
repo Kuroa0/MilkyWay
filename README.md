@@ -2,5 +2,5 @@
 イチゴ
 
 Stars Effect
-  Data
-  Stars.png(For Test)
+Data
+Stars.png(For Test)
