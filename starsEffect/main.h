@@ -30,10 +30,13 @@
 #define RELEASE_TEXTURE(texture)		{ if(texture) { (texture)->Release(); (texture)=nullptr; } }
 #endif
 
-#define SCREEN_WIDTH	(1280)				// ウインドウの幅
-#define SCREEN_HEIGHT	(720)				// ウインドウの高さ
-#define SCREEN_CENTER_X	(SCREEN_WIDTH / 2)	// ウインドウの中心Ｘ座標
-#define SCREEN_CENTER_Y	(SCREEN_HEIGHT / 2)	// ウインドウの中心Ｙ座標
+#define SCREEN_WIDTH		(1280)				// ウインドウの幅
+#define SCREEN_HEIGHT		(720)				// ウインドウの高さ
+//#define SCREEN_WIDTH		(800)				// ウインドウの幅
+//#define SCREEN_HEIGHT		(600)				// ウインドウの高さ
+#define SCREEN_CENTER_X		(SCREEN_WIDTH / 2)	// ウインドウの中心Ｘ座標
+#define SCREEN_CENTER_Y		(SCREEN_HEIGHT / 2)	// ウインドウの中心Ｙ座標
+//#define SCREEN_PERCENTAGE	(SCREEN_WIDTH / 1280.0f)
 
 #define	NUM_VERTEX		(4)					// 頂点数
 

@@ -6,8 +6,9 @@
 //=============================================================================
 #include "main.h"
 #include "input.h"
-#include "stars.h"
 #include <time.h>
+#include "stars.h"
+#include "bigStars.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -91,7 +92,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 						NULL);
 
 	// DirectXの初期化(ウィンドウを作成してから行う)
-	if(FAILED(Init(hWnd, true)))
+	if(FAILED(Init(hWnd, false)))
 	{
 		return -1;
 	}
@@ -210,28 +211,41 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 
 	// デバイスのプレゼンテーションパラメータの設定
 	ZeroMemory(&d3dpp, sizeof(d3dpp));							// ワークをゼロクリア
-	d3dpp.BackBufferCount			= 1;						// バックバッファの数
-	d3dpp.BackBufferWidth			= SCREEN_WIDTH;				// ゲーム画面サイズ(幅)
-	d3dpp.BackBufferHeight			= SCREEN_HEIGHT;			// ゲーム画面サイズ(高さ)
-	d3dpp.BackBufferFormat			= D3DFMT_UNKNOWN;			// バックバッファのフォーマットは現在設定されているものを使う
-	d3dpp.SwapEffect				= D3DSWAPEFFECT_DISCARD;	// 映像信号に同期してフリップする
-	d3dpp.Windowed					= bWindow;					// ウィンドウモード
-	d3dpp.EnableAutoDepthStencil	= TRUE;						// デプスバッファ（Ｚバッファ）とステンシルバッファを作成
-	d3dpp.AutoDepthStencilFormat	= D3DFMT_D16;				// デプスバッファとして16bitを使う
-	d3dpp.BackBufferFormat			= d3ddm.Format;				// カラーモードの指定
+	//d3dpp.BackBufferCount			= 1;						// バックバッファの数
+	//d3dpp.BackBufferWidth			= SCREEN_WIDTH;				// ゲーム画面サイズ(幅)
+	//d3dpp.BackBufferHeight			= SCREEN_HEIGHT;			// ゲーム画面サイズ(高さ)
+	//d3dpp.BackBufferFormat			= D3DFMT_UNKNOWN;			// バックバッファのフォーマットは現在設定されているものを使う
+	//d3dpp.SwapEffect				= D3DSWAPEFFECT_DISCARD;	// 映像信号に同期してフリップする
+	//d3dpp.Windowed					= false;					// ウィンドウモード
+	//d3dpp.EnableAutoDepthStencil	= TRUE;						// デプスバッファ（Ｚバッファ）とステンシルバッファを作成
+	//d3dpp.AutoDepthStencilFormat	= D3DFMT_D16;				// デプスバッファとして16bitを使う
+	//d3dpp.BackBufferFormat			= d3ddm.Format;				// カラーモードの指定
 
-	if(bWindow)
-	{// ウィンドウモード
-		d3dpp.BackBufferFormat           = D3DFMT_UNKNOWN;					// バックバッファ
-		d3dpp.FullScreen_RefreshRateInHz = 0;								// リフレッシュレート
-		d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE;	// インターバル
-	}
-	else
-	{// フルスクリーンモード
-		d3dpp.BackBufferFormat           = D3DFMT_R5G6B5;					// バックバッファ
-		d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;			// リフレッシュレート
-		d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT;		// インターバル
-	}
+	d3dpp.BackBufferWidth = SCREEN_WIDTH;
+	d3dpp.BackBufferHeight = SCREEN_HEIGHT;
+	d3dpp.BackBufferFormat = d3ddm.Format;
+	d3dpp.BackBufferCount = 1;
+	d3dpp.MultiSampleType = D3DMULTISAMPLE_NONE;
+	d3dpp.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	d3dpp.hDeviceWindow = hWnd;
+	d3dpp.Windowed = false;
+	d3dpp.EnableAutoDepthStencil = true;
+	d3dpp.AutoDepthStencilFormat = D3DFMT_D16;
+	d3dpp.FullScreen_RefreshRateInHz = d3ddm.RefreshRate;
+	d3dpp.PresentationInterval = 0;
+
+	//if(bWindow)
+	//{// ウィンドウモード
+	//	d3dpp.BackBufferFormat           = D3DFMT_UNKNOWN;					// バックバッファ
+	//	d3dpp.FullScreen_RefreshRateInHz = 0;								// リフレッシュレート
+	//	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_IMMEDIATE;	// インターバル
+	//}
+	//else
+	//{// フルスクリーンモード
+	//	d3dpp.BackBufferFormat           = D3DFMT_R5G6B5;					// バックバッファ
+	//	d3dpp.FullScreen_RefreshRateInHz = D3DPRESENT_RATE_DEFAULT;			// リフレッシュレート
+	//	d3dpp.PresentationInterval       = D3DPRESENT_INTERVAL_DEFAULT;		// インターバル
+	//}
 
 	// デバイスの生成
 	// ディスプレイアダプタを表すためのデバイスを作成
@@ -289,7 +303,7 @@ HRESULT Init(HWND hWnd, BOOL bWindow)
 	
 	// 初期化
 	InitStars();
-	
+	InitBigStars();
 
 	return S_OK;
 }
@@ -314,7 +328,7 @@ void Uninit(void)
 
 	// 終了処理
 	UninitStars();
-
+	UninitBigStars();
 }
 
 //=============================================================================
@@ -327,7 +341,7 @@ void Update(HWND hWnd)
 	
 	// 更新処理
 	UpdateStars();
-
+	UpdateBigStars();
 }
 
 //=============================================================================
@@ -343,6 +357,7 @@ void Draw(HWND hWnd)
 	{
 		// 描画処理
 		DrawStars();
+		DrawBigStars();
 
 #ifdef _DEBUG
 		// デバッグ表示
@@ -396,12 +411,11 @@ void DrawDebugFont(HWND hWnd)
 		{
 			j = 0;
 			rect.top = 40;
-			rect.left += 200;
+			rect.left += 210;
 		}
 		rect.top += 20;
-		sprintf(str, _T("stars %d pos:%d %d"), i, (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
+		sprintf(str, _T("no:%d gp:%d pos:%d %d"), i, (i / STARS_SEC_), (int)GetStarsBase(i)->pos.x, (int)GetStarsBase(i)->pos.y);
 		D3DXFont->DrawText(NULL, str, -1, &rect, DT_LEFT, D3DCOLOR_ARGB(0xff, 0xff, 0xff, 0xff));
-
 	}
 }
 #endif

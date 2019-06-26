@@ -1,6 +1,6 @@
 //=============================================================================
 //
-// 入力処理 [stars.cpp]
+// 星のエフェクト処理 [stars.cpp]
 // Author : 蔡 友剛
 //
 //=============================================================================
@@ -15,7 +15,7 @@ void SetVtxStars(int no);
 //=============================================================================
 // グローバル変数
 //=============================================================================
-LPDIRECT3DTEXTURE9	starsTexture;
+LPDIRECT3DTEXTURE9	starsTexture = NULL;
 STARS_BASE			starsBase[STARS_MAX];
 STARS_SEC			starsSecondary[STARS_SEC_MAX];
 
@@ -26,10 +26,13 @@ HRESULT InitStars(void)
 {
 	LPDIRECT3DDEVICE9 device = GetDevice();
 
-	// テクスチャの読み込み
-	D3DXCreateTextureFromFile(device,	// デバイスへのポインタ
-	STARS_TEXTURE,						// ファイルの名前
-	&starsTexture);						// 読み込むメモリー
+	if (starsTexture == NULL)
+	{
+		// テクスチャの読み込み
+		D3DXCreateTextureFromFile(device,	// デバイスへのポインタ
+			STARS_TEXTURE,					// ファイルの名前
+			&starsTexture);					// 読み込むメモリー
+	}
 
 	// パラメータの設定
 	for (int i = 0; i < STARS_SEC_MAX; i++)
@@ -45,12 +48,12 @@ HRESULT InitStars(void)
 	}
 	for (int i = 0; i < STARS_MAX; i++)
 	{
-		int tmpSecNo = (i / 3);
+		int tmpSecNo = (i / STARS_SEC_);
 
 		starsBase[i].pos = STARS_MID_POS;
 		starsBase[i].use = false;
-		starsBase[i].pos.x += rand() % 200 - 100;
-		starsBase[i].pos.y += rand() % 700;
+		starsBase[i].pos.x += (rand() % 200 - 100);
+		starsBase[i].pos.y += (rand() % 700);
 		
 		// 頂点フォーマット(中心座標)
 		MakeVtxStars(i);
@@ -75,7 +78,7 @@ void UpdateStars(void)
 	// パラメータの設定
 	for (int i = 0; i < STARS_MAX; i++)
 	{
-		int tmpSecNo = (i / 3);
+		int tmpSecNo = (i / STARS_SEC_);
 
 		starsBase[i].pos.y += 5;
 
@@ -140,7 +143,7 @@ void DrawStars(void)
 void SetVtxStars(int no)
 {
 	// パラメータの設定
-	int tmpSecNo = (no / 3);
+	int tmpSecNo = (no / STARS_SEC_);
 
 	// 頂点座標の設定
 	starsBase[no].vertexWk[0].vtx.x = starsBase[no].pos.x - cosf(D3DXToDegree(starsSecondary[tmpSecNo].angle) + starsSecondary[tmpSecNo].rot.z) * starsSecondary[tmpSecNo].size.x;
@@ -176,7 +179,7 @@ void MakeVtxStars(int no)
 
 	STARS_BASE *base = GetStarsBase(no);
 
-	int tmpSecNo = (no / 3);
+	int tmpSecNo = (no / STARS_SEC_);
 
 	STARS_SEC *sec = GetStarsSec(tmpSecNo);
 
@@ -230,4 +233,12 @@ STARS_BASE *GetStarsBase(int no)
 STARS_SEC *GetStarsSec(int no)
 {
 	return &starsSecondary[no];
+}
+
+//=============================================================================
+// 星のテクスチャを取得
+//=============================================================================
+LPDIRECT3DTEXTURE9 GetStarsTexture(void)
+{
+	return starsTexture;
 }
